@@ -1,1 +1,46 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Click Test</title><link rel='stylesheet' href='style.css'></head><body><div id='log'></div><div id='app'></div><script src='script.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Click Test</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="click-log" aria-label="Click log">
+    <div class="log-header">Click Log</div>
+    <div id="stats" class="stats">Attempts: 0</div>
+    <ol id="logList" class="log-list"></ol>
+  </aside>
+
+  <main class="app">
+    <section class="hero">
+      <p class="eyebrow">Sequential screen-coordinate click test</p>
+      <h1>Click the buttons from 1 to 9</h1>
+      <p class="instructions">
+        Each row contains three round buttons in randomized horizontal positions.
+        Every click records <code>screenX</code>, <code>screenY</code>, and a timestamp.
+      </p>
+      <div class="status-row">
+        <span id="nextTarget" class="pill">Next: 1</span>
+        <span id="attemptCounter" class="pill">Total attempts: 0</span>
+        <span id="timer" class="pill">Elapsed: 0.00s</span>
+      </div>
+    </section>
+
+    <section id="gameBoard" class="game-board" aria-label="Nine button click test board">
+      <div class="button-row" data-row="0"></div>
+      <div class="button-row" data-row="1"></div>
+      <div class="button-row" data-row="2"></div>
+    </section>
+
+    <section id="result" class="result" aria-live="polite" hidden>
+      <h2>Task Complete</h2>
+      <p id="resultDetails"></p>
+      <button id="restartButton" class="restart-button" type="button">Restart</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
