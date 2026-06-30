@@ -1,0 +1,257 @@
+:root {
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --panel: #ffffff;
+  --text: #182033;
+  --muted: #5f6b7a;
+  --border: #d9e1ee;
+  --shadow: 0 18px 40px rgba(31, 45, 61, 0.12);
+  --button-size: 72px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right, rgba(120, 160, 255, 0.22), transparent 34rem),
+    linear-gradient(135deg, #f9fbff 0%, var(--bg) 100%);
+}
+
+.click-log {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 20;
+  width: min(360px, calc(100vw - 24px));
+  max-height: 48vh;
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid rgba(217, 225, 238, 0.9);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 30px rgba(31, 45, 61, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.log-header {
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.log-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 1.2rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.log-list li::marker {
+  color: var(--muted);
+}
+
+.app {
+  width: min(980px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 9rem 0 4rem;
+}
+
+.hero,
+.result {
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow);
+}
+
+.hero {
+  padding: clamp(24px, 4vw, 44px);
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #4965a9;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1;
+}
+
+.instructions {
+  max-width: 720px;
+  margin: 18px auto 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+code {
+  padding: 0.12rem 0.35rem;
+  border-radius: 0.4rem;
+  background: #eef3ff;
+  color: #2e4a96;
+}
+
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.pill {
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 700;
+}
+
+.game-board {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: var(--shadow);
+  user-select: none;
+}
+
+.button-row {
+  position: relative;
+  min-height: 150px;
+  border: 1px dashed #cbd6e8;
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, rgba(73, 101, 169, 0.06), transparent 40%, rgba(73, 101, 169, 0.06)),
+    rgba(255, 255, 255, 0.48);
+}
+
+.target-button {
+  position: absolute;
+  width: var(--button-size);
+  height: var(--button-size);
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #6e8df4, #3b5fd3);
+  color: white;
+  box-shadow: 0 12px 24px rgba(59, 95, 211, 0.28);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 900;
+  transition: transform 150ms ease, opacity 150ms ease, filter 150ms ease;
+}
+
+.target-button:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.target-button:focus-visible {
+  outline: 4px solid rgba(59, 95, 211, 0.28);
+  outline-offset: 4px;
+}
+
+.target-button.completed {
+  background: linear-gradient(145deg, #3bb273, #238a54);
+  cursor: default;
+  opacity: 0.78;
+}
+
+.target-button.next {
+  box-shadow:
+    0 0 0 8px rgba(59, 95, 211, 0.12),
+    0 12px 24px rgba(59, 95, 211, 0.28);
+}
+
+.target-button.wrong {
+  animation: shake 220ms ease;
+  filter: saturate(1.3);
+}
+
+.result {
+  margin-top: 28px;
+  padding: 28px;
+  text-align: center;
+}
+
+.result h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+}
+
+.result p {
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.restart-button {
+  margin-top: 18px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #182033;
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.restart-button:hover {
+  transform: translateY(-1px);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --button-size: 60px;
+  }
+
+  .app {
+    width: min(100vw - 20px, 980px);
+    padding-top: 13rem;
+  }
+
+  .click-log {
+    max-height: 34vh;
+  }
+
+  .game-board {
+    padding: 14px;
+  }
+
+  .button-row {
+    min-height: 128px;
+  }
+}
