@@ -1,12 +1,12 @@
 :root {
   color-scheme: light;
-  --bg: #f5f7fb;
+  --bg: #f6f8fc;
   --panel: #ffffff;
-  --text: #182033;
-  --muted: #5f6b7a;
-  --border: #d9e1ee;
-  --shadow: 0 18px 40px rgba(31, 45, 61, 0.12);
-  --button-size: 72px;
+  --text: #172033;
+  --muted: #647083;
+  --border: #d8e1ee;
+  --shadow: 0 14px 34px rgba(31, 45, 61, 0.12);
+  --button-size: 64px;
 }
 
 * {
@@ -16,142 +16,84 @@
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at top right, rgba(120, 160, 255, 0.22), transparent 34rem),
-    linear-gradient(135deg, #f9fbff 0%, var(--bg) 100%);
+  background: linear-gradient(135deg, #fbfcff 0%, var(--bg) 100%);
 }
 
 .click-log {
   position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 20;
-  width: min(360px, calc(100vw - 24px));
-  max-height: 48vh;
-  overflow: auto;
-  padding: 12px;
-  border: 1px solid rgba(217, 225, 238, 0.9);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 10px 30px rgba(31, 45, 61, 0.12);
+  top: 10px;
+  left: 10px;
+  z-index: 50;
+  width: min(520px, calc(100vw - 20px));
+  padding: 10px 12px;
+  border: 1px solid rgba(216, 225, 238, 0.96);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 28px rgba(31, 45, 61, 0.12);
   backdrop-filter: blur(10px);
 }
 
-.log-header {
-  margin-bottom: 6px;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .stats {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.84rem;
+  font-weight: 800;
 }
 
-.log-list {
-  display: grid;
-  gap: 6px;
-  margin: 0;
-  padding-left: 1.2rem;
+.latest-log {
+  min-height: 1.35em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.35;
 }
 
-.log-list li::marker {
-  color: var(--muted);
-}
-
 .app {
-  width: min(980px, calc(100vw - 32px));
-  margin: 0 auto;
-  padding: 9rem 0 4rem;
-}
-
-.hero,
-.result {
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: var(--shadow);
-}
-
-.hero {
-  padding: clamp(24px, 4vw, 44px);
-  text-align: center;
-}
-
-.eyebrow {
-  margin: 0 0 10px;
-  color: #4965a9;
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-h1 {
-  margin: 0;
-  font-size: clamp(2rem, 6vw, 4.5rem);
-  line-height: 1;
-}
-
-.instructions {
-  max-width: 720px;
-  margin: 18px auto 0;
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
-code {
-  padding: 0.12rem 0.35rem;
-  border-radius: 0.4rem;
-  background: #eef3ff;
-  color: #2e4a96;
+  width: min(720px, calc(100vw - 20px));
+  margin: 86px 0 24px 10px;
 }
 
 .status-row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 24px;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .pill {
-  padding: 9px 14px;
+  padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: #fff;
-  font-weight: 700;
+  background: var(--panel);
+  box-shadow: 0 8px 18px rgba(31, 45, 61, 0.08);
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 
 .game-board {
   display: grid;
-  gap: 18px;
-  margin-top: 28px;
-  padding: 22px;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
   border: 1px solid var(--border);
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.62);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
   box-shadow: var(--shadow);
   user-select: none;
 }
 
 .button-row {
   position: relative;
-  min-height: 150px;
+  min-height: 112px;
   border: 1px dashed #cbd6e8;
-  border-radius: 24px;
-  background:
-    linear-gradient(90deg, rgba(73, 101, 169, 0.06), transparent 40%, rgba(73, 101, 169, 0.06)),
-    rgba(255, 255, 255, 0.48);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.58);
 }
 
 .target-button {
@@ -160,11 +102,11 @@ code {
   height: var(--button-size);
   border: none;
   border-radius: 50%;
-  background: linear-gradient(145deg, #6e8df4, #3b5fd3);
+  background: linear-gradient(145deg, #6d8cf4, #3c5fd2);
   color: white;
-  box-shadow: 0 12px 24px rgba(59, 95, 211, 0.28);
+  box-shadow: 0 10px 22px rgba(59, 95, 211, 0.26);
   cursor: pointer;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 900;
   transition: transform 150ms ease, opacity 150ms ease, filter 150ms ease;
 }
@@ -179,7 +121,7 @@ code {
 }
 
 .target-button.completed {
-  background: linear-gradient(145deg, #3bb273, #238a54);
+  background: linear-gradient(145deg, #38ae70, #238a54);
   cursor: default;
   opacity: 0.78;
 }
@@ -187,7 +129,7 @@ code {
 .target-button.next {
   box-shadow:
     0 0 0 8px rgba(59, 95, 211, 0.12),
-    0 12px 24px rgba(59, 95, 211, 0.28);
+    0 10px 22px rgba(59, 95, 211, 0.26);
 }
 
 .target-button.wrong {
@@ -196,28 +138,31 @@ code {
 }
 
 .result {
-  margin-top: 28px;
-  padding: 28px;
-  text-align: center;
+  margin-top: 10px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow);
 }
 
 .result h2 {
-  margin: 0 0 10px;
-  font-size: clamp(1.7rem, 4vw, 3rem);
+  margin: 0 0 8px;
+  font-size: 1.6rem;
 }
 
 .result p {
-  margin: 0 auto;
+  margin: 0;
   color: var(--muted);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .restart-button {
-  margin-top: 18px;
-  padding: 12px 18px;
+  margin-top: 14px;
+  padding: 10px 14px;
   border: 0;
   border-radius: 999px;
-  background: #182033;
+  background: #172033;
   color: white;
   cursor: pointer;
   font-weight: 800;
@@ -235,23 +180,21 @@ code {
 
 @media (max-width: 720px) {
   :root {
-    --button-size: 60px;
-  }
-
-  .app {
-    width: min(100vw - 20px, 980px);
-    padding-top: 13rem;
+    --button-size: 56px;
   }
 
   .click-log {
-    max-height: 34vh;
+    top: 8px;
+    left: 8px;
+    width: calc(100vw - 16px);
   }
 
-  .game-board {
-    padding: 14px;
+  .app {
+    width: calc(100vw - 16px);
+    margin: 84px 0 18px 8px;
   }
 
   .button-row {
-    min-height: 128px;
+    min-height: 100px;
   }
 }
