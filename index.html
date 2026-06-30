@@ -7,25 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <aside class="click-log" aria-label="Click log">
-    <div class="log-header">Click Log</div>
+  <aside class="click-log" aria-label="Latest click log">
     <div id="stats" class="stats">Attempts: 0</div>
-    <ol id="logList" class="log-list"></ol>
+    <div id="latestLog" class="latest-log">Click anywhere to show screenX / screenY</div>
   </aside>
 
   <main class="app">
-    <section class="hero">
-      <p class="eyebrow">Sequential screen-coordinate click test</p>
-      <h1>Click the buttons from 1 to 9</h1>
-      <p class="instructions">
-        Each row contains three round buttons in randomized horizontal positions.
-        Every click records <code>screenX</code>, <code>screenY</code>, and a timestamp.
-      </p>
-      <div class="status-row">
-        <span id="nextTarget" class="pill">Next: 1</span>
-        <span id="attemptCounter" class="pill">Total attempts: 0</span>
-        <span id="timer" class="pill">Elapsed: 0.00s</span>
-      </div>
+    <section class="status-row" aria-label="Test status">
+      <span id="nextTarget" class="pill">Next: 1</span>
+      <span id="attemptCounter" class="pill">Total attempts: 0</span>
+      <span id="timer" class="pill">Elapsed: 0.00s</span>
     </section>
 
     <section id="gameBoard" class="game-board" aria-label="Nine button click test board">
