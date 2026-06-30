@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Click Test</title>
   <link rel="icon" href="data:," />
-  <link rel="stylesheet" href="style.css?v=20260630-2" />
+  <link rel="stylesheet" href="style.css?v=20260630-3" />
 </head>
 <body>
   <aside class="click-log" aria-label="Latest click log">
     <div id="stats" class="stats">Attempts: 0</div>
-    <div id="latestLog" class="latest-log">Click anywhere to show screenX / screenY</div>
+    <div id="latestLog" class="latest-log">Click anywhere to start</div>
   </aside>
 
   <main class="app">
@@ -18,6 +18,7 @@
       <span id="nextTarget" class="pill">Next: 1</span>
       <span id="attemptCounter" class="pill">Total attempts: 0</span>
       <span id="timer" class="pill">Elapsed: 0.00s</span>
+      <button id="restartButton" class="restart-button" type="button">Restart</button>
     </section>
 
     <section id="gameBoard" class="game-board" aria-label="Nine button click test board">
@@ -29,10 +30,9 @@
     <section id="result" class="result" aria-live="polite" hidden>
       <h2>Task Complete</h2>
       <p id="resultDetails"></p>
-      <button id="restartButton" class="restart-button" type="button">Restart</button>
     </section>
   </main>
 
-  <script src="script.js?v=20260630-2"></script>
+  <script src="script.js?v=20260630-3"></script>
 </body>
 </html>
