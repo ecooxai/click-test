@@ -11,6 +11,7 @@ const restartButton = document.getElementById('restartButton');
 
 const TOTAL_BUTTONS = 9;
 const BUTTON_SIZE = 64;
+const DEFAULT_LOG_TEXT = 'Click anywhere to show screenX / screenY';
 
 let currentTarget = 1;
 let attempts = 0;
@@ -18,6 +19,12 @@ let startedAt = 0;
 let elapsedSeconds = 0;
 let completed = false;
 let timerId = null;
+
+function setText(element, text) {
+  if (element) {
+    element.textContent = text;
+  }
+}
 
 function randomBetween(min, max) {
   return Math.random() * (max - min) + min;
@@ -37,14 +44,14 @@ function formatTimestamp(date) {
 }
 
 function writeClickLog(event) {
-  latestLog.textContent = `screenX: ${event.screenX}, screenY: ${event.screenY}, ${formatTimestamp(new Date())}`;
+  setText(latestLog, `screenX: ${event.screenX}, screenY: ${event.screenY}, ${formatTimestamp(new Date())}`);
 }
 
 function updateStatus() {
-  stats.textContent = `Attempts: ${attempts}`;
-  attemptCounter.textContent = `Total attempts: ${attempts}`;
-  nextTarget.textContent = completed ? 'Complete' : `Next: ${currentTarget}`;
-  timer.textContent = `Elapsed: ${elapsedSeconds.toFixed(2)}s`;
+  setText(stats, `Attempts: ${attempts}`);
+  setText(attemptCounter, `Total attempts: ${attempts}`);
+  setText(nextTarget, completed ? 'Complete' : `Next: ${currentTarget}`);
+  setText(timer, `Elapsed: ${elapsedSeconds.toFixed(2)}s`);
 
   document.querySelectorAll('.target-button').forEach((button) => {
     button.classList.toggle('next', Number(button.dataset.number) === currentTarget && !completed);
@@ -73,7 +80,7 @@ function placeButtonsRandomly() {
   const buttonSize = getButtonSize();
 
   rows.forEach((row, rowIndex) => {
-    row.innerHTML = '';
+    row.replaceChildren();
     const rowWidth = row.clientWidth;
     const rowHeight = row.clientHeight;
     const segmentWidth = rowWidth / 3;
@@ -104,8 +111,12 @@ function completeTask() {
   completed = true;
   clearInterval(timerId);
   elapsedSeconds = (performance.now() - startedAt) / 1000;
-  result.hidden = false;
-  resultDetails.textContent = `Elapsed time: ${elapsedSeconds.toFixed(2)} seconds. Total attempts: ${attempts}.`;
+
+  if (result) {
+    result.hidden = false;
+  }
+
+  setText(resultDetails, `Elapsed time: ${elapsedSeconds.toFixed(2)} seconds. Total attempts: ${attempts}.`);
   updateStatus();
 }
 
@@ -151,16 +162,27 @@ function resetGame() {
   currentTarget = 1;
   attempts = 0;
   completed = false;
-  result.hidden = true;
-  latestLog.textContent = 'Click anywhere to show screenX / screenY';
+
+  if (result) {
+    result.hidden = true;
+  }
+
+  setText(latestLog, DEFAULT_LOG_TEXT);
   placeButtonsRandomly();
   startTimer();
   updateStatus();
 }
 
 document.addEventListener('click', writeClickLog, true);
-board.addEventListener('click', handleBoardClick);
-restartButton.addEventListener('click', resetGame);
+
+if (board) {
+  board.addEventListener('click', handleBoardClick);
+}
+
+if (restartButton) {
+  restartButton.addEventListener('click', resetGame);
+}
+
 window.addEventListener('resize', () => {
   if (!completed) {
     placeButtonsRandomly();
