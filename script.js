@@ -1,6 +1,6 @@
 const board = document.getElementById('gameBoard');
 const rows = Array.from(document.querySelectorAll('.button-row'));
-const logList = document.getElementById('logList');
+const latestLog = document.getElementById('latestLog');
 const stats = document.getElementById('stats');
 const nextTarget = document.getElementById('nextTarget');
 const attemptCounter = document.getElementById('attemptCounter');
@@ -10,8 +10,7 @@ const resultDetails = document.getElementById('resultDetails');
 const restartButton = document.getElementById('restartButton');
 
 const TOTAL_BUTTONS = 9;
-const BUTTON_SIZE = 72;
-const MAX_LOG_ITEMS = 18;
+const BUTTON_SIZE = 64;
 
 let currentTarget = 1;
 let attempts = 0;
@@ -38,13 +37,7 @@ function formatTimestamp(date) {
 }
 
 function writeClickLog(event) {
-  const item = document.createElement('li');
-  item.textContent = `screenX: ${event.screenX}, screenY: ${event.screenY}, ${formatTimestamp(new Date())}`;
-  logList.prepend(item);
-
-  while (logList.children.length > MAX_LOG_ITEMS) {
-    logList.lastElementChild.remove();
-  }
+  latestLog.textContent = `screenX: ${event.screenX}, screenY: ${event.screenY}, ${formatTimestamp(new Date())}`;
 }
 
 function updateStatus() {
@@ -114,7 +107,6 @@ function completeTask() {
   result.hidden = false;
   resultDetails.textContent = `Elapsed time: ${elapsedSeconds.toFixed(2)} seconds. Total attempts: ${attempts}.`;
   updateStatus();
-  result.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function markWrongClick(button) {
@@ -160,7 +152,7 @@ function resetGame() {
   attempts = 0;
   completed = false;
   result.hidden = true;
-  logList.innerHTML = '';
+  latestLog.textContent = 'Click anywhere to show screenX / screenY';
   placeButtonsRandomly();
   startTimer();
   updateStatus();
