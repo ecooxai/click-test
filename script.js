@@ -11,7 +11,7 @@ const restartButton = document.getElementById('restartButton');
 
 const TOTAL_BUTTONS = 9;
 const BUTTON_SIZE = 64;
-const DEFAULT_LOG_TEXT = 'Click anywhere to show screenX / screenY';
+const DEFAULT_LOG_TEXT = 'Click anywhere to start';
 
 let currentTarget = 1;
 let attempts = 0;
@@ -19,6 +19,7 @@ let startedAt = 0;
 let elapsedSeconds = 0;
 let completed = false;
 let timerId = null;
+let timerRunning = false;
 
 function setText(element, text) {
   if (element) {
@@ -59,15 +60,26 @@ function updateStatus() {
 }
 
 function startTimer() {
+  if (timerRunning) return;
+
   clearInterval(timerId);
+  timerRunning = true;
   startedAt = performance.now();
   elapsedSeconds = 0;
+  updateStatus();
+
   timerId = setInterval(() => {
-    if (!completed) {
+    if (!completed && timerRunning) {
       elapsedSeconds = (performance.now() - startedAt) / 1000;
       updateStatus();
     }
   }, 50);
+}
+
+function stopTimer() {
+  clearInterval(timerId);
+  timerId = null;
+  timerRunning = false;
 }
 
 function getButtonSize() {
@@ -109,8 +121,12 @@ function placeButtonsRandomly() {
 
 function completeTask() {
   completed = true;
-  clearInterval(timerId);
-  elapsedSeconds = (performance.now() - startedAt) / 1000;
+
+  if (timerRunning) {
+    elapsedSeconds = (performance.now() - startedAt) / 1000;
+  }
+
+  stopTimer();
 
   if (result) {
     result.hidden = false;
@@ -128,10 +144,19 @@ function markWrongClick(button) {
   });
 }
 
-function handleBoardClick(event) {
+function handlePageClick(event) {
+  if (event.target.closest('#restartButton')) return;
   if (completed) return;
 
   attempts += 1;
+  writeClickLog(event);
+  startTimer();
+  updateStatus();
+}
+
+function handleBoardClick(event) {
+  if (completed) return;
+
   const button = event.target.closest('.target-button');
 
   if (!button) {
@@ -159,28 +184,34 @@ function handleBoardClick(event) {
 }
 
 function resetGame() {
+  stopTimer();
   currentTarget = 1;
   attempts = 0;
+  startedAt = 0;
+  elapsedSeconds = 0;
   completed = false;
 
   if (result) {
     result.hidden = true;
   }
 
+  setText(resultDetails, '');
   setText(latestLog, DEFAULT_LOG_TEXT);
   placeButtonsRandomly();
-  startTimer();
   updateStatus();
 }
 
-document.addEventListener('click', writeClickLog, true);
+document.addEventListener('click', handlePageClick, true);
 
 if (board) {
   board.addEventListener('click', handleBoardClick);
 }
 
 if (restartButton) {
-  restartButton.addEventListener('click', resetGame);
+  restartButton.addEventListener('click', (event) => {
+    event.stopPropagation();
+    resetGame();
+  });
 }
 
 window.addEventListener('resize', () => {
